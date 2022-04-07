@@ -99,8 +99,6 @@ def allvendor(request):
     manager=''
     if User.is_authenticated:
         manager = request.user.username
-        #print(manager)
-        #Vendor.objects.all().delete()
         vendor = models.Vendor.objects.filter(managername=manager)
         return render(request, 'vendor/allvendor.html',{'vendor':vendor})
 
@@ -110,34 +108,18 @@ def allvendor(request):
 @login_required
 def ledger(request,pk):
          ledgerform = vendorledgerForm()
-         #data = vendorledger.objects.filter(managername=request.user.username)
          vendor_obj = get_object_or_404(models.Vendor,pk=pk)
-        #  pkvalue = vendor_obj.pk
-         #print(pkvalue)
-
-        #  url1 = request.path
-         #print(url1)
-
          ledgerdata = models.vendorledger.objects.filter(related_vendor=vendor_obj)
          alltotal=0.0
-         #print(ledgerdata[0].total)
          for alto in ledgerdata:
              alltotal = alltotal+float(alto.total)
 
          print(alltotal)
-         #print(vendor_obj)
 
-         #print(ledgerdata)
          milks = models.MilkCategory.objects.filter(related_vendor=vendor_obj)
-
-         #for milk in milks:
-         #    print(milk.animalname + "-----" +milk.milkprice)
 
          milk_list = [(milk.animalname +"-"+ str(milk.milkprice), milk.pk) for milk in milks]
          print(milk_list)
-
-         # print(tuple(milk_list))
-
 
          day_list = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
          return render(request, 'vendor/vendorledger.html',{
@@ -198,10 +180,6 @@ def ledger_delete(request):
     return redirect(current_url)
 
 
-
-#***************************************************#
-#       ||  Customer Views (User) Started  ||       #
-#***************************************************#
 
 # Add Customer - This is a Profile model (For Create Admin/Manager/Customer)
 @login_required
@@ -318,22 +296,5 @@ def customer_ledger_delete(request):
 def allcustomer(request):
     customerinfo = models.Profile.objects.all()
     return render(request,'Customers/Customer_detail.html',{'customerinfo':customerinfo})
-
-# def password_reset(request):
-#     if request.method == 'POST':
-#         form = password_reset_form(request.POST)
-#         if form.is_valid():
-#             subject = "Password Reset"
-#             to_email = form.cleaned_data['email']
-#             receivers_list = [to_email,]
-#             message =
-#
-#             emailsender = settings.EMAIL_HOST_USER
-#             send_mail(subject, message, emailsender, receivers_list, fail_silently=False)
-#             print("To Email: ",to_email)
-#             return redirect('home')
-#     else:
-#         form = password_reset_form()
-#         return render(request,'registration/password_reset_form.html',{'form':form})
 
 
