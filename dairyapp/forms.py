@@ -32,7 +32,7 @@ class SignUpForm(UserCreationForm):
 class AddVendorForm(forms.Form):
     CHOICES = (
         ('Cow','Cow'),
-        ('Buffaloe','Buffaloe'),
+        ('Goat','Goat'),
         ('Others','Others'),
     )
     Manager_Name = forms.CharField(required=True, max_length=200)

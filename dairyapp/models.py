@@ -24,7 +24,7 @@ class Vendor(models.Model):
 class MilkCategory(models.Model):
     CHOICES1 = (
         ('Cow','Cow'),
-        ('Buffaloe','Buffalo'),#buffaloes
+        ('Goat','Goat'),
         ('Others','Others'),
     )
     animalname= models.CharField(max_length=200,choices=CHOICES1)
